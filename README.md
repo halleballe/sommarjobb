@@ -1,3 +1,3 @@
 # sommarjobb
 små appar för ett enklare sommarjobb
-[./roll-calculator]
+[Roll calculator](/roll-calculator)
