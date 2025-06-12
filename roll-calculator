@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roll Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 400px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    .result {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+    }
+    .result p {
+      margin: 0.5rem 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Roll Calculator</h1>
+
+  <label for="quantity">Quantity remaining [m]</label>
+  <input type="number" id="quantity" min="0" step="0.01" />
+
+  <label for="rollLength">Roll length [m]</label>
+  <input type="number" id="rollLength" min="0.01" step="0.01" />
+
+  <div class="result">
+    <p id="numRolls">Number of Rolls: 0</p>
+    <p id="producedLength">Produced Length: 0 m</p>
+  </div>
+
+  <script>
+    const quantityInput = document.getElementById('quantity');
+    const rollLengthInput = document.getElementById('rollLength');
+    const numRollsOutput = document.getElementById('numRolls');
+    const producedLengthOutput = document.getElementById('producedLength');
+
+    function updateResults() {
+      const quantity = parseFloat(quantityInput.value);
+      const rollLength = parseFloat(rollLengthInput.value);
+
+      if (!isNaN(quantity) && !isNaN(rollLength) && rollLength > 0) {
+        const numRolls = Math.ceil(quantity / rollLength);
+        const producedLength = numRolls * rollLength;
+
+        numRollsOutput.textContent = `Number of Rolls: ${numRolls}`;
+        producedLengthOutput.textContent = `Produced Length: ${producedLength} m`;
+      } else {
+        numRollsOutput.textContent = 'Number of Rolls: 0';
+        producedLengthOutput.textContent = 'Produced Length: 0 m';
+      }
+    }
+
+    quantityInput.addEventListener('input', updateResults);
+    rollLengthInput.addEventListener('input', updateResults);
+  </script>
+</body>
+</html>
