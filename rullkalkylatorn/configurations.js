@@ -35,6 +35,11 @@ class Configuration {
             this.length_per_area = 0
             this.film_density = 0
 
+            this.cargo_dims = ""
+            this.cargo_tolerances = ""
+            this.cargo_volume = 0
+
+            this.nothing= ""
             this.dimensions = dimensions; // Add dimensions attribute
         }
 
@@ -47,13 +52,18 @@ class Configuration {
         }
 
         update_values(){
-            this.calculate_area()
-            this.calculate_box_volume()
-            this.calculate_roll_volume()
-            this.calculate_roll_length()
-            this.calculate_length_per_area()
-            this.calculate_film_density()
+            this.calculate_area();
+            this.calculate_box_volume();
+            this.calculate_roll_volume();
+            this.calculate_roll_length();
+            this.calculate_length_per_area();
+            this.calculate_film_density();
 
+            // Hämta lastbilsmått från formuläret
+            const truck_width = parseFloat(document.getElementById("truck-width").value) || 2.45;
+            const truck_length = parseFloat(document.getElementById("truck-length").value) || 13.61;
+            const truck_height = parseFloat(document.getElementById("truck-height").value) || 2.70;
+            this.calculate_truck_load(truck_width, truck_length, truck_height);
         }
 
         calculate_area(){
@@ -103,6 +113,49 @@ class Configuration {
         calculate_dimentsions(){
             this.dimensions = `${this.pallet_width*1000}x${this.pallet_length*1000}x${this.pallet_height*1000} ⌀${this.roll_outer_diameter*1000}`
             return this.dimensions
+        }
+        calculate_truck_load(truck_width = 2.450, truck_length = 13.61, truck_height = 2.700, truck_tolerances = [50, 50, 50]) {
+            var pallet_width = Math.max(this.pallet_width, this.roll_outer_diameter*this.nr_rolls)
+            var pallet_length = Math.max(this.pallet_length, this.film_width)
+            var pallet_height = this.pallet_height + this.roll_outer_diameter
+            console.log(`width:${pallet_width}, length:${pallet_length}, height${pallet_height}`)
+            //there are two ways to load the truck, either with the pallets in the longitudinal direction or in the transverse direction
+            var pallets_in_height = Math.floor(truck_height/pallet_height)*1.00
+            var pallets_in_width = Math.floor(truck_width/pallet_width)*1.00
+            var pallets_in_length = Math.floor(truck_length/pallet_length)*1.00
+
+            var trans_pallets_in_width = Math.floor(truck_width/pallet_length)*1.00
+            var trans_pallets_in_length = Math.floor(truck_length/pallet_width)*1.00
+
+
+            if (trans_pallets_in_length*trans_pallets_in_width > pallets_in_length * pallets_in_width){
+                pallets_in_width = trans_pallets_in_width
+                pallets_in_length = trans_pallets_in_length
+                var new_width = pallet_length
+                var new_length = pallet_width
+                pallet_width = new_width
+                pallet_length = new_length
+            }
+
+            var total_width = pallets_in_width * pallet_width;
+            var total_length = pallets_in_length * pallet_length;
+            var total_height = pallets_in_height * pallet_height;
+
+            var tolerance_width = truck_width - total_width;
+            var tolerance_height = truck_height - total_height;
+            var tolerance_length = truck_length - total_length;
+
+            var cargo_dims =  `${total_width} x ${total_length} x ${total_height}`
+            var cargo_tolerances = `${tolerance_width} x ${tolerance_length} x ${tolerance_height}`
+            var cargo_volume = pallets_in_width * pallets_in_height * pallets_in_length * this.roll_volume
+
+            this.nr_pallets_in_truck = `${pallets_in_width} x ${pallets_in_length} x ${pallets_in_height}`
+            
+            this.cargo_dims = `${total_width.toFixed(2)} x ${total_length.toFixed(2)} x ${total_height.toFixed(2)}`
+            this.cargo_tolerances = `${tolerance_width.toFixed(2)} x ${tolerance_length.toFixed(2)} x ${tolerance_height.toFixed(2)}`
+            this.cargo_volume = Number(cargo_volume.toFixed(2))
+
+            return;
         }
     }
 
