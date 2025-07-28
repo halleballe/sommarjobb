@@ -1,0 +1,129 @@
+    body {
+        font-family: Arial, sans-serif;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input, select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+    button {
+        padding: 10px 15px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .rotated_table_head {
+        transform: rotate(-45deg);
+        transform-origin: left bottom;
+        white-space: nowrap;
+    }
+    
+   .best{
+        background-color: #d4edda; /* Light green background for best values */
+        font-weight: bold; /* Make the text bold */
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        max-width: 100px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    .percent-diff {
+        font-size: 0.9em;
+        display: block;
+        margin-top: 2px;
+    }
+    .percent-diff.pos {
+        color: green;
+    }
+    .percent-diff.neg {
+        color: red;
+    }
+    .percent-diff.benchmark {
+        color: #888;
+    }
+    #compare-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 6px;
+    margin-bottom: 10px;
+}
+.compare-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    justify-content: flex-start;
+}
+.compare-checkbox-row input[type="checkbox"] {
+    margin: 0;
+}
+input[type="checkbox"] {
+    width: auto;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 60px;
+    left: 0; top: 0; width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+}
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 80vw;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #000;
+}
+.modal-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.table-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+#results-table th:first-child,
+#results-table td:first-child {
+    position: sticky;
+    left: 0;
+    background: #f2f2f2;
+    z-index: 2;
+    min-width: 140px; /* Adjust as needed for your description width */
+    text-align: left;
+}
