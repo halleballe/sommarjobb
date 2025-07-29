@@ -160,7 +160,7 @@ class Configuration {
     }
 
 var configurations = []
-const inner_diameter = 152; //default inner diameter for rolls in mm
+const inner_diameter = 180; //default inner diameter for rolls in mm
 configurations.push(new Configuration(
     "Egen rulle",
     "",
@@ -212,12 +212,12 @@ configurations.push(new Configuration(
 ))
 configurations.push(new Configuration(
     "EU-pall längs",
-    "(800x1200 ⌀1150)",
+    "(800x1200 ⌀1200)",
     800, //pallet_width
     1200, //pallet_length
     144, //pallet_height
     1, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     1.5, //pallet_tower_height
     "EU-pall_längs_1100.png" //image filename
@@ -250,12 +250,12 @@ configurations.push(new Configuration(
     ))
 configurations.push(new Configuration(
         "Industripall längs",
-        "(1000x1200 ⌀1150)",
+        "(1000x1200 ⌀1200)",
         1000, //pallet_width
         1200, //pallet_length
         144, //pallet_height
         1, //nr_rolls
-        1150, //roll_outer_diameter
+        1200, //roll_outer_diameter
         152, //roll_inner_diameter
         1.5, //pallet_tower_height
         "Industripall_längs_1100.png" //image filename
@@ -288,12 +288,12 @@ configurations.push(new Configuration(
 ))
 configurations.push(new Configuration(
     "EU-pall tvärs",
-    "(1200x800 ⌀115§0)",
+    "(1200x800 ⌀1200)",
     1200, //pallet_width
     800, //pallet_length
     144, //pallet_height
     1, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     1.5, //pallet_tower_height
     "EU-pall_tvärs_1100.png" //image filename
@@ -326,12 +326,12 @@ configurations.push(new Configuration(
 ))
 configurations.push(new Configuration(
     "Industripall tvärs",
-    "(1200x1000 ⌀1150)",
+    "(1200x1000 ⌀1200)",
     1200, //pallet_width
     1000, //pallet_length
     144, //pallet_height
     1, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     1.5, //pallet_tower_height
     "Industripall_tvärs_1100.png" //image filename
@@ -400,12 +400,12 @@ configurations.push(new Configuration(
 ))
 configurations.push(new Configuration(
     "EU-pall tvärs dubbla rullar",
-    "(1200x800 ⌀1150)",
+    "(1200x800 ⌀1200)",
     1200, //pallet_width
     800, //pallet_length
     144, //pallet_height
     2, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     2, //pallet_tower_height
     "EU-pall_tvärs_dubbla_rullar_1100.png" //image filename
@@ -474,12 +474,12 @@ configurations.push(new Configuration(
 ))
 configurations.push(new Configuration(
     "Industripall tvärs dubbla rullar",
-    "(1200x1000 ⌀1150)",
+    "(1200x1000 ⌀1200)",
     1200, //pallet_width
     1000, //pallet_length
     144, //pallet_height
     2, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     2, //pallet_tower_height
     "Industripall_tvärs_dubbla_rullar_1100.png" //image filename
@@ -535,24 +535,24 @@ configurations.push(new Configuration(
 ))
 configurations.push(new Configuration(
     "dubbel EU-pall längs ",
-    "(1600x1200 ⌀1150)",
+    "(1600x1200 ⌀1200)",
     1600, //pallet_width
     1200, //pallet_length
     144, //pallet_height
     2, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     2, //pallet_tower_height
     "dubbel_EU-pall_längs_1100.png" //image filename
 ))
 configurations.push(new Configuration(
     "dubbel EU-pall längs 3torn",
-    "(1600x1200 ⌀1150)",
+    "(1600x1200 ⌀1200)",
     1600, //pallet_width
     1200, //pallet_length
     144, //pallet_height
     2, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     3, //pallet_tower_height
     "dubbel_EU-pall_längs_1100.png" //image filename
@@ -561,12 +561,12 @@ configurations.push(new Configuration(
 //Dubbel EU-pall tvärs
 configurations.push(new Configuration(
     "dubbel EU-pall tvärs",
-    "(800x24000 ⌀1150)",
+    "(800x24000 ⌀1200)",
     2400, //pallet_width
     800, //pallet_length
     144, //pallet_height
     2, //nr_rolls
-    1150, //roll_outer_diameter
+    1200, //roll_outer_diameter
     152, //roll_inner_diameter
     2, //pallet_tower_height
     "dubbel_EU-pall_tvärs_1100.png" //image filename
