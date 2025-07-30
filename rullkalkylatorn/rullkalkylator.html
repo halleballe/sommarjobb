@@ -155,14 +155,24 @@ function getChosenConfigIndices() {
 
 function populateBenchmarkSelect(configs, chosenIndices) {
     const select = document.getElementById("benchmark-select");
-    const currentValue = select.value;
+    const currentValue = parseInt(select.value, 10); // Tolka nuvarande värde som tal
     select.innerHTML = chosenIndices.map(i =>
         `<option value="${i}">${configs[i].name} ${configs[i].dimensions}</option>`
     ).join("");
-    select.disabled = false;
-    if (chosenIndices.includes(3)) select.value = "3";
-    else if (chosenIndices.map(i => String(i)).includes(currentValue)) select.value = currentValue;
-    else if (chosenIndices.length > 0) select.value = chosenIndices[0];
+
+    select.disabled = chosenIndices.length === 0;
+
+    // Prioritet:
+    // 1. Behåll samma värde om det fortfarande finns kvar
+    // 2. Använd 3 om den finns kvar
+    // 3. Välj första valda som fallback
+    if (chosenIndices.includes(currentValue)) {
+        select.value = currentValue;
+    } else if (chosenIndices.includes(3)) {
+        select.value = 3;
+    } else if (chosenIndices.length > 0) {
+        select.value = chosenIndices[0];
+    }
 }
 
 function updateAllConfigValues() {
