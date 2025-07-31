@@ -377,8 +377,10 @@ document.getElementById("material-form").addEventListener("submit", function(e) 
 
 <link rel="stylesheet" href="./style.css">
 
-<h2>Angående frakt</h2>
-I detta räkneexemplet har jag använt mig av en lastbil med måtten 2.45m bredd, 13.61m längd och 2.7m höjd. Detta är standardmått, men kan bytas ut till exakta mått. I uträkningen antar jag att alla pallar kan staplas rakt på varandra. Vissa pallar kommer att behöva stödstrukturer för att kunna staplas i lastbilen. Detta har *inte* räknats med i denna kalkylator. 
+<h2>Uträkningar</h2>
+Rullens volym = (radie_rulle^2 - radie_bobin^2)*pi * bredd_film. 
+Boxvolym = max(diameter_rulle, pall_bredd) * max(bredd_film, längd_pall) * (höjd_pall + diameter_film)
+Bobinen antas ha diameter 200mm och pallarna är 144mm höga. 
 <div id="image-modal" class="modal" style="display:none;">
   <span class="modal-close" id="modal-close">&times;</span>
   <img class="modal-content" id="modal-img" src="" alt="Konfigurationsbild">
