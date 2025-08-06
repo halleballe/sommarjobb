@@ -27,6 +27,7 @@ class Configuration {
 
             this.film_thickness = 0.005 //default film thickness in m
             this.film_width = 1
+            this.density = 950 //default film density in kg/m^3
 
             this.area = 0
             this.box_volume = 0
@@ -34,10 +35,12 @@ class Configuration {
             this.roll_length = 0
             this.length_per_area = 0
             this.film_density = 0
+            this.film_weight = 0
 
             this.cargo_dims = ""
             this.cargo_tolerances = ""
-            this.cargo_volume = 0
+            this.cargo_weight = 0
+            this.cargo_length = 0
 
             this.nothing= ""
             this.dimensions = dimensions; // Add dimensions attribute
@@ -58,6 +61,7 @@ class Configuration {
             this.calculate_roll_length();
             this.calculate_length_per_area();
             this.calculate_film_density();
+            this.calculate_film_weight();
 
             // Hämta lastbilsmått från formuläret
             const truck_width = parseFloat(document.getElementById("truck-width").value) || 2.45;
@@ -93,7 +97,7 @@ class Configuration {
         calculate_roll_length(){
             var volume = this.calculate_roll_volume()/this.nr_rolls
             var length = volume/this.film_width/this.film_thickness
-            this.roll_length = length
+            this.roll_length = parseInt(Math.round(length))
             return this.roll_length
         }
 
@@ -101,7 +105,7 @@ class Configuration {
             var area = this.calculate_area()
             var total_length = this.calculate_roll_length() * this.nr_rolls
             total_length *= this.pallet_tower_height
-            this.length_per_area = total_length/area
+            this.length_per_area = parseInt(Math.round(total_length/area))
             return this.length_per_area
         }
         calculate_film_density(){
@@ -109,6 +113,12 @@ class Configuration {
             var roll_volume = this.calculate_roll_volume()
             this.film_density= roll_volume/volume
             return this.film_density
+        }
+        calculate_film_weight(){
+            var roll_volume = this.calculate_roll_volume()
+            var weight = roll_volume * this.density
+            this.film_weight = parseInt(Math.round(weight / 10) * 10); // round to nearest 10
+            return weight
         }
         calculate_dimentsions(){
             this.dimensions = `${this.pallet_width*1000}x${this.pallet_length*1000}x${this.pallet_height*1000} ⌀${this.roll_outer_diameter*1000}`
@@ -147,20 +157,21 @@ class Configuration {
 
             var cargo_dims =  `${total_width} x ${total_length} x ${total_height}`
             var cargo_tolerances = `${tolerance_width} x ${tolerance_length} x ${tolerance_height}`
-            var cargo_volume = pallets_in_width * pallets_in_height * pallets_in_length * this.roll_volume
+            var cargo_weight = pallets_in_width * pallets_in_height * pallets_in_length * this.calculate_film_weight();
 
             this.nr_pallets_in_truck = `${pallets_in_width} x ${pallets_in_length} x ${pallets_in_height}`
             
             this.cargo_dims = `${total_width.toFixed(2)} x ${total_length.toFixed(2)} x ${total_height.toFixed(2)}`
             this.cargo_tolerances = `${tolerance_width.toFixed(2)} x ${tolerance_length.toFixed(2)} x ${tolerance_height.toFixed(2)}`
-            this.cargo_volume = Number(cargo_volume.toFixed(2))
+            this.cargo_weight = Number(cargo_weight)
 
+            this.cargo_length = pallets_in_width * pallets_in_length * pallets_in_height * this.roll_length * this.nr_rolls;
             return;
         }
     }
 
 var configurations = []
-const inner_diameter = 180; //default inner diameter for rolls in mm
+const inner_diameter = 200; //default inner diameter for rolls in mm
 configurations.push(new Configuration(
     "Egen rulle",
     "",
