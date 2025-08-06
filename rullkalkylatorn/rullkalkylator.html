@@ -128,7 +128,9 @@ function generateResultsTable(configs, rows, benchmarkIdx) {
                                 }
                             }
                             return `<td class="${isBest ? 'best' : ''}">
-                                <div>${typeof value === "string" ? value : value.toFixed(2)}</div>
+                                <div>
+  ${typeof value === "number" && !Number.isInteger(value) ? value.toFixed(2) : value}
+</div>
                                 <div>${percent}</div>
                             </td>`;
                         }).join("")}
@@ -197,19 +199,20 @@ function update_results_table() {
     const benchmarkIndex = chosen_configs.findIndex((c, idx) => configurations.indexOf(c) == parseInt(document.getElementById("benchmark-select").value, 10));
     const rows = [
         { key: "area", label: "Lageryta för en pall [m²]", order: 0 },
+        { key: "pallet_tower_height", label: "Stapelhöjd [antal pallar]", order: 0 },
         { key: "box_volume", label: "Lagervolym för en pall [m³]", order: 0 },
         { key: "roll_volume", label: "Filmvolym på en pall [m³]", order: 0 },
-        { key: "pallet_tower_height", label: "Stapelhöjd [antal pallar]", order: 0 },
+        { key: "film_weight", label: "ungefärlig pallvikt [kg]", order: 0 },
         {key: "nothing", label:"", order:0},
         { key: "roll_length", label: "Löpmeter per rulle [m]", order: 1 },
-        { key: "film_density", label: "Lagervolym-utnyttjande [%]", order: 1 },
         { key: "length_per_area", label: "Film per lageryta [m / m²]", order: 1 },
         // Frakt/truck rows directly after the main ones
         {key: "nothing", label:"", order:0},
         { key: "nr_pallets_in_truck", label: "Antal pallar i lastbilen (bredd x längd x höjd)", order: 0 },
         { key: "cargo_dims", label: "Lastens mått i lastbil (bredd x längd x höjd) [m]", order: 0 },
-        { key: "cargo_tolerances", label: "Lastens toleranser i lastbil (bredd x längd x höjd) [m]", order: 0 },
-        { key: "cargo_volume", label: "Volym film per lastbil [m³]", order: 1 }
+        { key: "cargo_tolerances", label: "Lastens marginaler i lastbil (bredd x längd x höjd) [m]", order: 0 },
+        { key: "cargo_weight", label: "Vikt per lastbil [kg]", order: 1 },
+        { key: "cargo_length", label: "Löpmeter film per lastbil [m]", order: 1 }
     ];
     document.getElementById("results-table").innerHTML = generateResultsTable(chosen_configs, rows, benchmarkIndex);
 }
@@ -356,7 +359,7 @@ function updateCustomConfiguration() {
 
     // Update configuration[0]
     const cfg = configurations[0];
-    cfg.name = `Egen rulle  ${nrRolls}st, ${direction}, ${towerHeight} torn`;
+    cfg.name = `Egen rulle`;
     cfg.pallet_width = width / 1000;
     cfg.pallet_length = length / 1000;
     cfg.pallet_height = height / 1000;
@@ -378,40 +381,10 @@ document.getElementById("material-form").addEventListener("submit", function(e) 
 <link rel="stylesheet" href="./style.css">
 
 <h2>Uträkningar</h2>
-Rullens volym = (radie_rulle^2 - radie_bobin^2)*pi * bredd_film. 
-Boxvolym = max(diameter_rulle, pall_bredd) * max(bredd_film, längd_pall) * (höjd_pall + diameter_film)
-Bobinen antas ha diameter 200mm och pallarna är 144mm höga. 
+Bobinen antas ha diameter 200mm och pallarna är 144mm höga. Densiteten antas vara 950kg/m³. För att veta hur alla värden togs fram, se rapporten
 <div id="image-modal" class="modal" style="display:none;">
   <span class="modal-close" id="modal-close">&times;</span>
   <img class="modal-content" id="modal-img" src="" alt="Konfigurationsbild">
-</div>
-<div>
-    <h2>Rena multipler av 4900m</h2>
-    <ul>
-        <li>4900</li>
-        <li>9800</li>
-        <li>14700</li>
-        <li>19600</li>
-        <li>24500</li>
-        <li>29400</li>
-        <li>34300</li>
-        <li>39200</li>
-    </ul>
-    <h2>Rena multipler av 3200m</h2>
-    <ul>
-        <li>3200</li>
-        <li>6400</li>
-        <li>9600</li>
-        <li>12800</li>
-        <li>16000</li>
-        <li>19200</li>
-        <li>22400</li>
-        <li>25600</li>
-        <li>28800</li>
-        <li>32000</li>
-        <li>35200</li>
-        <li>38400</li>
-    </ul>
 </div>
 
 </body>
