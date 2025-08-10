@@ -145,7 +145,7 @@ function generateResultsTable(configs, rows, benchmarkIdx) {
 function populateCompareList(configs) {
     document.getElementById("compare-list").innerHTML = configs.map((c, i) =>
         `<div class="compare-checkbox-row">
-            <input type="checkbox" class="compare-checkbox" id="compare-cb-${i}" value="${i}" checked>
+            <input type="checkbox" class="compare-checkbox" id="compare-cb-${i}" value="${i}">
             <label for="compare-cb-${i}">${c.name}&nbsp;&nbsp;${c.dimensions}</label>
         </div>`
     ).join("");
