@@ -236,7 +236,7 @@ configurations.push(new Configuration(
 
 //Industripall längs
 configurations.push(new Configuration(
-        "Industripall längs",
+        "Nuvarande Lösning",
         "(1000x1200 ⌀1000)",
         1000, //pallet_width
         1200, //pallet_length
