@@ -380,7 +380,56 @@ document.getElementById("material-form").addEventListener("submit", function(e) 
 <link rel="stylesheet" href="./style.css">
 
 <h2>Uträkningar</h2>
-Bobinen antas ha diameter 200mm och pallarna är 144mm höga. Densiteten antas vara 950kg/m³. För att veta hur alla värden togs fram, se rapporten
+Bobinen antas ha diameter 200mm och pallarna är 144mm höga. Densiteten antas vara 950kg/m³. 
+    <table border="1" cellpadding="5">
+  <tr>
+    <th colspan="2">Rullen</th>
+  </tr>
+  <tr>
+    <td>Volym per rulle</td>
+    <td>(R² · π − r² · π) · filmbredd</td>
+  </tr>
+  <tr>
+    <td>Löpmeter per rulle</td>
+    <td>(R² · π − r² · π) / filmens tjocklek</td>
+  </tr>
+  <tr>
+    <td>Vikt per pall</td>
+    <td>volym per rulle · densitet · rullar per pall</td>
+  </tr>
+
+  <tr>
+    <th colspan="2">Golvyta</th>
+  </tr>
+  <tr>
+    <td>Golvyta per pall</td>
+    <td>max(rullens diameter, pallbredd) · max(filmbredd, pallens längd)</td>
+  </tr>
+  <tr>
+    <td>Volym per pall</td>
+    <td>golvyta per pall · (pallens höjd + rullens diameter)</td>
+  </tr>
+  <tr>
+    <td>Volymutnyttjande</td>
+    <td>(volym per rulle · rullar per pall) / volym per pall</td>
+  </tr>
+
+  <tr>
+    <th colspan="2">Variabler</th>
+  </tr>
+  <tr>
+    <td>R</td>
+    <td>Rullens ytterradie</td>
+  </tr>
+  <tr>
+    <td>r</td>
+    <td>Bobinens radie = 100 mm</td>
+  </tr>
+  <tr>
+    <td>Densitet</td>
+    <td>950 kg/m³</td>
+  </tr>
+</table>
 <div id="image-modal" class="modal" style="display:none;">
   <span class="modal-close" id="modal-close">&times;</span>
   <img class="modal-content" id="modal-img" src="" alt="Konfigurationsbild">
