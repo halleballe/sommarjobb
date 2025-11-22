@@ -58,9 +58,11 @@
       margin: 0;
       text-align: left;
       transform-origin: left center;
-      padding-top: 37%;
+      padding-top:37%;
       transition: transform 120ms ease, opacity 120ms ease;
       will-change: transform, opacity;
+      user-select: none;
+      pointer-events: none;
     }
 
     .small-count {
@@ -93,6 +95,8 @@
       font-weight: 700;
       margin: 0;
       padding-top: 30%;
+      user-select: none;
+      pointer-events: none;
     }
 
     input[type=number] {
@@ -102,7 +106,7 @@
       border: 2px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.03);
       color: #c0c0c0;
-      max-width: 250px;
+      max-width: 160px;
       outline: none;
       box-sizing: border-box;
     }
@@ -157,7 +161,7 @@
 <body>
   <main class="stage" role="main">
     <div class="left">
-      <div id="count" class="count" aria-live="polite">80</div>
+      <div id="count" class="count" aria-live="polite" aria-hidden="true">80</div>
     </div>
 
 <div class="right">
@@ -166,6 +170,7 @@
     <div class="input-row">
       <input id="setNumber" type="number" inputmode="numeric" placeholder="Enter number" />
       <button id="apply">Set</button>
+      <button id="fullscreenBtn" title="Toggle Fullscreen">⛶</button>
     </div>
     <div class="hint-small">
       Press <strong>Space</strong> to count down, ↑/↓ add / subtract
@@ -179,6 +184,14 @@
       const countEl = document.getElementById('count');
       const input = document.getElementById('setNumber');
       const applyBtn = document.getElementById('apply');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+      // Detect Windows and remove padding-top
+      if (navigator.platform.startsWith('Win')) {
+        countEl.style.paddingTop = '0';
+        const labelEl = document.querySelector('.label');
+        if (labelEl) labelEl.style.paddingTop = '0';
+      }
 
       function getValue(){
         const n = parseInt(countEl.textContent.replace(/[^0-9-]/g,''), 10);
@@ -259,6 +272,17 @@
         if (val > 0){
           setValue(val - 1);
           animatePop();
+        }
+      });
+
+      // Fullscreen toggle
+      fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => {
+            console.error(`Failed to enter fullscreen mode: ${err.message} (${err.name})`);
+          });
+        } else {
+          document.exitFullscreen();
         }
       });
     })();
